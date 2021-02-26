@@ -9,6 +9,7 @@ namespace Lec2021.Models
     public class TestDbConxextcs:DbContext
     {
         public DbSet<TestsModel> TestsModels { get; set; }
+        public DbSet<Person> People { get; set; }
         public TestDbConxextcs(DbContextOptions<TestDbConxextcs> dbContextOptions) : base(dbContextOptions)
         {
             Database.EnsureCreated();

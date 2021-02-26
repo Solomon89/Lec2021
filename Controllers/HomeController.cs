@@ -25,7 +25,30 @@ namespace Lec2021.Controllers
             ViewData.Model =  _TestDbConxextcs.TestsModels.OrderBy(item => item.Id).ToList();
             return View();
         }
-
+        public IActionResult GetTest(int id)
+        {
+            ViewData.Model = _TestDbConxextcs.TestsModels.FirstOrDefault(i=>i.Id ==id);
+            return View();
+        }
+        [HttpGet]
+        public IActionResult EditTest(int id)
+        {
+            ViewData.Model = _TestDbConxextcs.TestsModels.FirstOrDefault(i => i.Id == id);
+            return View();
+        }
+        [HttpPost]
+        public IActionResult EditTest(TestsModel TestsModel)
+        {
+            var fromDB =  _TestDbConxextcs.TestsModels.Find(TestsModel.Id);
+            fromDB.isActive = TestsModel.isActive;
+            fromDB.Name = TestsModel.Name;
+            fromDB.Description = TestsModel.Description;
+            fromDB.Created = TestsModel.Created;
+            fromDB.Creator = TestsModel.Creator;
+            fromDB.Updated = TestsModel.Updated;
+            _TestDbConxextcs.SaveChanges();
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
