@@ -1,4 +1,5 @@
 ﻿using Lec2021.Models;
+using Lec2021.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,16 +14,19 @@ namespace Lec2021.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly TestDbConxextcs _TestDbConxextcs;
+        private readonly IMessageSender _MessageSender;
 
-        public HomeController(ILogger<HomeController> logger, TestDbConxextcs TestDbConxextcs)
+        public HomeController(ILogger<HomeController> logger, TestDbConxextcs TestDbConxextcs, IMessageSender MessageSender)
         {
             _logger = logger;
             _TestDbConxextcs = TestDbConxextcs;
+            _MessageSender = MessageSender;
         }
 
         public IActionResult Index()
         {
             ViewData.Model =  _TestDbConxextcs.TestsModels.OrderBy(item => item.Id).ToList();
+            ViewBag.Message = _MessageSender.Send("Привет мир");
             return View();
         }
         public IActionResult GetTest(int id)
