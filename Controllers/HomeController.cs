@@ -1,4 +1,4 @@
-﻿using Lec2021.Models;
+﻿using ModelDb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

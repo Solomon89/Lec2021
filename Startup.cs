@@ -1,4 +1,4 @@
-using Lec2021.Models;
+using ModelDb.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +28,7 @@ namespace Lec2021
             services.AddControllersWithViews();
             services.AddDbContext<TestDbConxextcs>(options =>
                            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            var serv = services.ToList();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

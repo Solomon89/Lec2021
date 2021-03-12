@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lec2021.Models
 {
-    public class TestDbConxextcs:DbContext
+    /*public class TestDbConxextcs:DbContext
     {
         public DbSet<TestsModel> TestsModels { get; set; }
         public DbSet<Person> People { get; set; }
@@ -30,5 +30,5 @@ namespace Lec2021.Models
                 SaveChanges();
             }
         }
-    }
+    }*/
 }
