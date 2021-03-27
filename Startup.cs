@@ -30,6 +30,7 @@ namespace Lec2021
             services.AddDbContext<TestDbConxextcs>(options =>
                            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IMessageSender, SmsMessageSender>();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,7 +48,12 @@ namespace Lec2021
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test API");
+                c.RoutePrefix = "swagger";
+            });
             app.UseRouting();
 
             app.UseAuthorization();
