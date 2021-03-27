@@ -22,7 +22,7 @@ namespace Lec2021
         }
 
         public IConfiguration Configuration { get; }
-
+        readonly string CorsPolicy = "AllowOrigin";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -30,6 +30,11 @@ namespace Lec2021
             services.AddDbContext<TestDbConxextcs>(options =>
                            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IMessageSender, SmsMessageSender>();
+            services.AddSwaggerGen();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(CorsPolicy, options => options.AllowAnyOrigin());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +56,13 @@ namespace Lec2021
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSwagger();
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "IBAS Test");
+                c.RoutePrefix = "swagger";
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
