@@ -14,7 +14,8 @@ namespace Lec2021.Models
         public string Description { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
-        public virtual Person Creator { get; set; }
+        public virtual UserTest Owner { get; set; }
+
         public bool isActive { get; set; }
     }
 }

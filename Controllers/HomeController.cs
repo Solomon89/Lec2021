@@ -48,7 +48,7 @@ namespace Lec2021.Controllers
             fromDB.Name = TestsModel.Name;
             fromDB.Description = TestsModel.Description;
             fromDB.Created = TestsModel.Created;
-            fromDB.Creator = TestsModel.Creator;
+            fromDB.Owner = TestsModel.Owner;
             fromDB.Updated = TestsModel.Updated;
             _TestDbConxextcs.SaveChanges();
             return View();

@@ -4,14 +4,16 @@ using Lec2021.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lec2021.Migrations
 {
     [DbContext(typeof(TestDbConxextcs))]
-    partial class TestDbConxextcsModelSnapshot : ModelSnapshot
+    [Migration("20210409055130_add-Identity")]
+    partial class addIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,29 +52,29 @@ namespace Lec2021.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("CreatorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PersonId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("UserTestId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("isActive")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("CreatorId");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("UserTestId");
 
                     b.ToTable("TestsModels");
                 });
@@ -276,15 +278,15 @@ namespace Lec2021.Migrations
 
             modelBuilder.Entity("Lec2021.Models.TestsModel", b =>
                 {
-                    b.HasOne("Lec2021.Models.UserTest", "Owner")
-                        .WithMany("Tests")
-                        .HasForeignKey("OwnerId");
-
-                    b.HasOne("Lec2021.Models.Person", null)
+                    b.HasOne("Lec2021.Models.Person", "Creator")
                         .WithMany("TestsModels")
-                        .HasForeignKey("PersonId");
+                        .HasForeignKey("CreatorId");
 
-                    b.Navigation("Owner");
+                    b.HasOne("Lec2021.Models.UserTest", null)
+                        .WithMany("Tests")
+                        .HasForeignKey("UserTestId");
+
+                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
