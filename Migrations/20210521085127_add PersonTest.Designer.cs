@@ -4,40 +4,22 @@ using Lec2021.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lec2021.Migrations
 {
     [DbContext(typeof(TestDbConxextcs))]
-    partial class TestDbConxextcsModelSnapshot : ModelSnapshot
+    [Migration("20210521085127_add PersonTest")]
+    partial class addPersonTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Lec2021.Models.Answers", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("QuestionsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionsId");
-
-                    b.ToTable("Answers");
-                });
 
             modelBuilder.Entity("Lec2021.Models.Person", b =>
                 {
@@ -83,26 +65,6 @@ namespace Lec2021.Migrations
                     b.HasIndex("TestsModelId");
 
                     b.ToTable("PersonTests");
-                });
-
-            modelBuilder.Entity("Lec2021.Models.Questions", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TestsModelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TestsModelId");
-
-                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("Lec2021.Models.TestsModel", b =>
@@ -207,26 +169,6 @@ namespace Lec2021.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Lec2021.Models.UserTestAnswer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AnswersId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnswersId");
-
-                    b.ToTable("UserTestAnswer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -359,15 +301,6 @@ namespace Lec2021.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Lec2021.Models.Answers", b =>
-                {
-                    b.HasOne("Lec2021.Models.Questions", "Questions")
-                        .WithMany()
-                        .HasForeignKey("QuestionsId");
-
-                    b.Navigation("Questions");
-                });
-
             modelBuilder.Entity("Lec2021.Models.PersonTest", b =>
                 {
                     b.HasOne("Lec2021.Models.Person", "Person")
@@ -383,15 +316,6 @@ namespace Lec2021.Migrations
                     b.Navigation("TestsModel");
                 });
 
-            modelBuilder.Entity("Lec2021.Models.Questions", b =>
-                {
-                    b.HasOne("Lec2021.Models.TestsModel", "TestsModel")
-                        .WithMany()
-                        .HasForeignKey("TestsModelId");
-
-                    b.Navigation("TestsModel");
-                });
-
             modelBuilder.Entity("Lec2021.Models.TestsModel", b =>
                 {
                     b.HasOne("Lec2021.Models.UserTest", "Owner")
@@ -403,15 +327,6 @@ namespace Lec2021.Migrations
                         .HasForeignKey("PersonId");
 
                     b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("Lec2021.Models.UserTestAnswer", b =>
-                {
-                    b.HasOne("Lec2021.Models.Answers", "Answers")
-                        .WithMany()
-                        .HasForeignKey("AnswersId");
-
-                    b.Navigation("Answers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

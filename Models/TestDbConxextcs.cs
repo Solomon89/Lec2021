@@ -13,6 +13,10 @@ namespace Lec2021.Models
     {
         public DbSet<TestsModel> TestsModels { get; set; }
         public DbSet<Person> People { get; set; }
+        public DbSet<PersonTest> PersonTests { get; set; }
+        public DbSet<UserTestAnswer> UserTestAnswer { get; set; }
+        public DbSet<Answers> Answers { get; set; }
+        public DbSet<Questions> Questions { get; set; }
         public TestDbConxextcs(DbContextOptions<TestDbConxextcs> dbContextOptions) : base(dbContextOptions)
         {
             Database.EnsureCreated();

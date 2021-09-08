@@ -12,6 +12,6 @@ namespace Lec2021.Models
         public override string Name { get => base.Name; set => base.Name = value; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }
-        public List<TestsModel> TestsModels { get; set; }
+        public virtual List<TestsModel> TestsModels { get; set; }
     }
 }
